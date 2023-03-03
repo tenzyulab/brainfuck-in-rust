@@ -1,0 +1,12 @@
+[package]
+name = "bf_macro"
+version = "0.0.0"
+edition = "2021"
+
+[lib]
+path = "lib.rs"
+proc-macro = true
+
+[dependencies]
+quote = "1"
+proc-macro2 = "1"
