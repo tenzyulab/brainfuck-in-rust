@@ -56,10 +56,10 @@ impl BrainFuck {
         fn process_ops(ops: Vec<Oper>) -> TokenStream2 {
             ops.into_iter() // Iterator<Item=Operation>
                 .map(|op| match op {
-                    Oper::IncrementPointer => quote! { pointer += 1; },
-                    Oper::DecrementPointer => quote! { pointer -= 1; },
-                    Oper::Increment => quote! { buf[pointer] += 1; },
-                    Oper::Decrement => quote! { buf[pointer] -= 1; },
+                    Oper::IncrementPointer => quote! { pointer = pointer.wrapping_add(1); },
+                    Oper::DecrementPointer => quote! { pointer = pointer.wrapping_sub(1); },
+                    Oper::Increment => quote! { buf[pointer] = buf[pointer].wrapping_add(1); },
+                    Oper::Decrement => quote! { buf[pointer] = buf[pointer].wrapping_sub(1); },
                     Oper::Write => quote! {
                         ::std::io::Write::write(
                             &mut stdout,
